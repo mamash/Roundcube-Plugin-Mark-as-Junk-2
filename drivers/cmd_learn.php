@@ -52,6 +52,7 @@ class markasjunk2_cmd_learn
 
 			if (preg_match('/%f/', $command)) {
 				$tmpfname = tempnam($temp_dir, 'rcmSALearn');
+				chmod($tmpfname, 0644);
 				file_put_contents($tmpfname, $rcmail->storage->get_raw_body($uid));
 				$tmp_command = str_replace('%f', $tmpfname, $command);
 			}
