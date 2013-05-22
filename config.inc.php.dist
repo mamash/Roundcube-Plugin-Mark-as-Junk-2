@@ -16,7 +16,7 @@ $rcmail_config['markasjunk2_ham_mbox'] = null;
 
 // Spam mailbox
 // Mailbox messages should be moved to when they are marked as spam.
-// null = the mailbox assigned as the spam folder in Roundcube settins
+// null = the mailbox assigned as the spam folder in Roundcube settings
 // set to FALSE to disable message moving
 $rcmail_config['markasjunk2_spam_mbox'] = null;
 
@@ -40,6 +40,16 @@ $rcmail_config['markasjunk2_debug'] = false;
 // Show icon on mailbox toolbar
 // The mark as spam/ham icon can either be displayed on the toolbar or as part of the mark messages menu
 $rcmail_config['markasjunk2_mb_toolbar'] = true;
+
+// Show icon on compose toolbar
+// The mark as spam/ham icon can either be displayed on the toolbar or as part of the mark messages menu
+$rcmail_config['markasjunk2_cp_toolbar'] = true;
+
+// Learn any message moved to the spam mailbox as spam (not just when the button is pressed)
+$rcmail_config['markasjunk2_move_spam'] = false;
+
+// Learn any message moved from the spam mailbox to the ham mailbox as ham (not just when the button is pressed)
+$rcmail_config['markasjunk2_move_ham'] = false;
 
 // cmd_learn Driver options
 // ------------------------
@@ -116,5 +126,27 @@ $rcmail_config['markasjunk2_email_subject'] = 'learn this message as %t';
 // ---------------------------
 // Path to SAUserPrefs config file
 $rcmail_config['markasjunk2_sauserprefs_config'] = '../sauserprefs/config.inc.php';
+
+// edit_headers Driver options
+// ---------------------------
+// Patterns to match and replace headers for spam messages
+// Replacement method uses preg_replace - http://www.php.net/manual/function.preg-replace.php
+// WARNING: Be sure to match the entire header line, including the name of the header, also use ^ and $ and the 'm' flag
+// see the README for an example
+// TEST CAREFULLY BEFORE USE ON REAL MESSAGES
+$rcmail_config['markasjunk2_spam_patterns'] = array(
+												'patterns' => array(),
+												'replacements' => array()
+												);
+
+// Patterns to match and replace headers for spam messages
+// Replacement method uses preg_replace - http://www.php.net/manual/function.preg-replace.php
+// WARNING: Be sure to match the entire header line, including the name of the header, also use ^ and $ and the 'm' flag
+// see the README for an example
+// TEST CAREFULLY BEFORE USE ON REAL MESSAGES
+$rcmail_config['markasjunk2_ham_patterns'] = array(
+												'patterns' => array(),
+												'replacements' => array()
+												);
 
 ?>

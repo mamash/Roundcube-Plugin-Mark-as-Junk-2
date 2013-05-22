@@ -20,7 +20,7 @@ class markasjunk2_email_learn
 
 	private function _do_emaillearn($uids, $spam)
 	{
-		$rcmail = rcmail::get_instance();
+		$rcmail = rcube::get_instance();
 		$identity_arr = $rcmail->user->get_identity();
 		$from = $identity_arr['email'];
 
@@ -85,7 +85,7 @@ class markasjunk2_email_learn
 						$transfer_encoding, 'attachment', '', '', '',
 						$rcmail->config->get('mime_param_folding') ? 'quoted-printable' : NULL,
 						$rcmail->config->get('mime_param_folding') == 2 ? 'quoted-printable' : NULL,
-						'', RCMAIL_CHARSET
+						'', RCUBE_CHARSET
 					);
 				}
 
@@ -169,7 +169,7 @@ class markasjunk2_email_learn
 				}
 			}
 
-			rcmail_deliver_message($MAIL_MIME, $from, $mailto, $smtp_error, $body_file);
+			$rcmail->deliver_message($MAIL_MIME, $from, $mailto, $smtp_error, $body_file);
 
 			// clean up
 			if (file_exists($tmpPath))
@@ -177,12 +177,12 @@ class markasjunk2_email_learn
 
 			if ($rcmail->config->get('markasjunk2_debug')) {
 				if ($spam)
-					write_log('markasjunk2', $uid . ' SPAM ' . $mailto . ' (' . $subject . ')');
+					rcube::write_log('markasjunk2', $uid . ' SPAM ' . $mailto . ' (' . $subject . ')');
 				else
-					write_log('markasjunk2', $uid . ' HAM ' . $mailto . ' (' . $subject . ')');
+					rcube::write_log('markasjunk2', $uid . ' HAM ' . $mailto . ' (' . $subject . ')');
 
 				if ($smtp_error['vars'])
-					write_log('markasjunk2', $smtp_error['vars']);
+					rcube::write_log('markasjunk2', $smtp_error['vars']);
 			}
 		}
 	}
